@@ -1,0 +1,346 @@
+openapi: 3.0.0
+info:
+  title: Monitoring services
+  description: Monitoring services
+  version: v1
+servers:
+  - url: http://localhost:8081
+    description: Local Dev Server
+
+paths:
+  #Temperature(2)
+
+  /Monitoring/Temperature:
+    get:
+      tags:
+        - Temperature
+      parameters:
+        - $ref: "#/components/parameters/limitParam"
+        - $ref: "#/components/parameters/directionParam"
+        - $ref: "#/components/parameters/sortByFieldParam"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringResultTemperature"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+
+    post:
+      tags:
+        - Temperature
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MonitoringDto2"
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringDto2"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+    put:
+      tags:
+        - Temperature
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MonitoringDto2"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringDto2"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+    delete:
+      tags:
+        - Temperature
+      parameters:
+        - $ref: "#/components/parameters/idParam"
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+  /Monitoring/Temperatureget:
+    get:
+      tags:
+        - Temperature
+      parameters:
+        - $ref: "#/components/parameters/idParam"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringDto2"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+  /Monitoring/Spo2:
+    get:
+      tags:
+        - Spo2
+      parameters:
+        - $ref: "#/components/parameters/limitParam"
+        - $ref: "#/components/parameters/directionParam"
+        - $ref: "#/components/parameters/sortByFieldParam"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringResultSpo2"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+
+    post:
+      tags:
+        - Spo2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MonitoringDto6"
+      responses:
+        "201":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringDto6"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+    put:
+      tags:
+        - Spo2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MonitoringDto6"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringDto6"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+    delete:
+      tags:
+        - Spo2
+      parameters:
+        - $ref: "#/components/parameters/idParam"
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+  /Monitoring/Spo2get:
+    get:
+      tags:
+        - Spo2
+      parameters:
+        - $ref: "#/components/parameters/idParam"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MonitoringDto6"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/ResourceNotFoundError"
+        "422":
+          $ref: "#/components/responses/UnAcceptableInputs"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    idParam:
+      name: Id
+      in: query
+      required: true
+      schema:
+        type: string
+    limitParam:
+      name: Limit
+      in: query
+      schema:
+        type: integer
+        nullable: true
+    directionParam:
+      name: Direction
+      in: query
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
+        default: asc
+    sortByFieldParam:
+      name: SortByField
+      in: query
+      schema:
+        type: string
+        nullable: true
+  responses:
+    Success:
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MessageDto"
+    ResourceNotFoundError:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MessageDto"
+    UnauthorizedError:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MessageDto"
+    UnAcceptableInputs:
+      description: Invalid Inputs
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MessageDto"
+
+  schemas:
+    MessageDto:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    MonitoringResultTemperature:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoringDto2"
+    MonitoringDto2:
+      type: object
+      properties:
+        id:
+          type: string
+        Tbody:
+          type: number
+        Tobj:
+          type: number
+        Tamb:
+          type: number
+        Tex:
+          type: number
+        Distance:
+          type: number
+        Voltage:
+          type: number
+      required:
+        - id
+        - Tbody
+        - Tobj
+        - Tamb
+        - Tex
+        - Distance
+        - Voltage
+
+    MonitoringResultSpo2:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonitoringDto6"
+    MonitoringDto6:
+      type: object
+      properties:
+        id:
+          type: string
+        bloodoxygen:
+          type: number
+        heartrate:
+          type: number
+        pulsestrength:
+          type: number
+        pi:
+          type: number
+        pulseWave:
+          type: array
+          items:
+            type: number
+      required:
+        - id
+        - bloodoxygen
+        - heartrate
+        - pulsestrength
+        - pulseWave
+        - pi
